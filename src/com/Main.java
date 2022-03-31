@@ -1,8 +1,24 @@
 package com;
 
 import java.util.Scanner;
+import java.util.Arrays;
 
 public class Main {
+    /**
+     * Метод для создания рандомного масиа значений.
+     * Принемающий: размер,минимальное значение,максимальное значение.
+     */
+    public static int[] randomArray(int size, int min, int max) {
+        int[] array;
+        array = new int[size];
+        System.out.print("Array: \n| ");
+        for (int i = 0; i < array.length; i++) {
+            array[i] = (int) Math.round((Math.random() * (min - max)) - min);
+            System.out.print(array[i]+" | ");
+        }
+        return array;
+    }
+
     /**
      * Task 000
      * Функция для вычесления номера заданий
@@ -21,15 +37,22 @@ public class Main {
 
     /**
      * Task 1
-     *
+     * Дан массив вещественных чисел, размер которого N.
+     * Подсчитать, сколько в нем отрицательных, положительных и нулевых элементов.
      */
     public static void Task34() {
-
+        int max = 0, min = 0, zero = 0;
+        int[] array = randomArray(20, -10, 10);
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] > 0) max++;
+            if (array[i] < 0) min++;
+            if (array[i] == 0) zero++;
+        }
+        System.out.println("\nmax: " + max +"\nmin: " + min +"\nZero: " + zero);
     }
 
     /**
      * Task 2
-     *
      */
     public static void Task59() {
 
@@ -37,7 +60,6 @@ public class Main {
 
     /**
      * Task 3
-     *
      */
     public static void Task84() {
 
@@ -45,7 +67,6 @@ public class Main {
 
     /**
      * Task 4
-     *
      */
     public static void Task109() {
 
@@ -53,7 +74,6 @@ public class Main {
 
     /**
      * Task 5
-     *
      */
     public static void Task134() {
 
