@@ -1,7 +1,6 @@
 package com;
 
-import java.util.Scanner;
-import java.util.Arrays;
+import java.util.*;
 
 public class Main {
     /**
@@ -13,9 +12,10 @@ public class Main {
         array = new int[size];
         System.out.print("Array: \n| ");
         for (int i = 0; i < array.length; i++) {
-            array[i] = (int) Math.round((Math.random() * (min - max)) - min);
-            System.out.print(array[i]+" | ");
+            array[i] = (int) Math.round((Math.random() * (max - min)) + min);
+            System.out.print(array[i] + " | ");
         }
+        System.out.print("\n");
         return array;
     }
 
@@ -48,14 +48,75 @@ public class Main {
             if (array[i] < 0) min++;
             if (array[i] == 0) zero++;
         }
-        System.out.println("\nmax: " + max +"\nmin: " + min +"\nZero: " + zero);
+        System.out.println("\nmax: " + max + "\nmin: " + min + "\nZero: " + zero);
     }
 
     /**
      * Task 2
+     * Дан массив, состоящий из 100 целых чисел. Вывести все числа, которые встречаются в этом массиве:
+     * а) несколько раз;(Task59a)
+     * б) только по одному разу.(Task59b)
      */
-    public static void Task59() {
+    public static void Task59a() {
+        int[] array = randomArray(100, 0, 10);
+        HashSet<Integer> used = new HashSet<>();
+        int counter = 0;
+        int counterSecond = 0;
+        for (int i = 0; i < array.length; i++) {
+            if (used.contains(array[i])) {
+                continue;
+            } else {
+                used.add(array[i]);
+            }
+            ArrayList<Integer> positions = new ArrayList<>();
+            positions.add(i);
+            for (int j = i + 1; j < array.length; j++) {
+                if (array[i] == array[j]) {
+                    positions.add(j);
+                    counter++;
+                }
+            }
+            //а) несколько раз;
+            for (Integer p : positions) {
+                if (counter >= 1) {
+                    System.out.print(array[p] + ", ");
+                }
+            }
+            if (counter >= 1) {
+                counter = 0;
+                System.out.println();
+            }
+        }
+    }
 
+    public static void Task59b() {
+        int[] array = randomArray(100, 0, 10);
+        HashSet<Integer> used = new HashSet<>();
+        int counter = 0;
+        int counterSecond = 0;
+        for (int i = 0; i < array.length; i++) {
+            if (used.contains(array[i])) {
+                continue;
+            } else {
+                used.add(array[i]);
+            }
+            ArrayList<Integer> positions = new ArrayList<>();
+            positions.add(i);
+            for (int j = i + 1; j < array.length; j++) {
+                if (array[i] == array[j]) {
+                    positions.add(j);
+                    counter++;
+                }
+            }
+            // один раз;
+            for (Integer p : positions) {
+                if (counter >= 1) {
+                    counter = 0;
+                    System.out.print(array[p] + ", ");
+                    System.out.println();
+                }
+            }
+        }
     }
 
     /**
@@ -91,7 +152,8 @@ public class Main {
                     break;
                 case 2:
                     System.out.println("\nTask 2");
-                    Task59();
+                    Task59a();
+                    Task59b();
                     break;
                 case 3:
                     System.out.println("\nTask 3");
