@@ -7,11 +7,11 @@ public class Main {
      * Метод для создания рандомного масиа значений.
      * Принемающий: размер,минимальное значение,максимальное значение.
      */
-    public static int[] randomArray(int size, int min, int max) {
+    public static int[] randomArray(int size, int min, int max, int emptyCells) {
         int[] array;
-        array = new int[size];
+        array = new int[size + emptyCells];
         System.out.print("Array: \n| ");
-        for (int i = 0; i < array.length; i++) {
+        for (int i = 0; i < size; i++) {
             array[i] = (int) Math.round((Math.random() * (max - min)) + min);
             System.out.print(array[i] + " | ");
         }
@@ -42,7 +42,7 @@ public class Main {
      */
     public static void Task34() {
         int max = 0, min = 0, zero = 0;
-        int[] array = randomArray(20, -10, 10);
+        int[] array = randomArray(20, -10, 10, 0);
         for (int i = 0; i < array.length; i++) {
             if (array[i] > 0) max++;
             if (array[i] < 0) min++;
@@ -58,7 +58,7 @@ public class Main {
      * б) только по одному разу.(Task59b)
      */
     public static void Task59a() {
-        int[] array = randomArray(100, 0, 10);
+        int[] array = randomArray(100, 0, 10, 0);
         HashSet<Integer> used = new HashSet<>();
         int counter = 0;
         int counterSecond = 0;
@@ -90,7 +90,7 @@ public class Main {
     }
 
     public static void Task59b() {
-        int[] array = randomArray(100, 0, 10);
+        int[] array = randomArray(100, 0, 10, 0);
         HashSet<Integer> used = new HashSet<>();
         int counter = 0;
         int counterSecond = 0;
@@ -143,9 +143,28 @@ public class Main {
 
     /**
      * Task 4
+     * На k-e место одномерного массива вещественных чисел вставить число, равное максимальному элементу массива.
      */
     public static void Task109() {
-
+        int size = 10;
+        int[] array = randomArray(size, 0, 10, 1);
+        int maxNumber = -16;
+        int maxIndex = 2;
+        int posInsert = 3;//местот для вставки числа(индекс)
+        for (int i = 0; i < array.length; i++) {
+            if (maxNumber <= array[i]) {
+                maxNumber = array[i];
+                maxIndex = i;
+            }
+        }
+        for (int i = size; i >= maxIndex; --i) {
+            array[i] = array[i - 1];
+        }
+        array[posInsert - 1] = maxNumber;
+        for (int a = 0; a != array.length; a++) {
+            System.out.print(array[a] + " | ");
+        }
+        System.out.println("\nMax number: " + maxNumber + " to position " + posInsert);
     }
 
     /**
