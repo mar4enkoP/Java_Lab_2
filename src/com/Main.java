@@ -121,9 +121,24 @@ public class Main {
 
     /**
      * Task 3
+     * Дана последовательность целых чисел, оканчивающаяся числом 9999.
+     * Количество чисел в последовательности не меньше двух.
+     * Определить, есть ли в ней хотя бы одна пара соседних четных чисел.
+     * В случае положительного ответа определить порядковые номера чисел первой из таких пар.
      */
     public static void Task84() {
-
+        int[] array = {1, 2, 4, 8, 9, 7, 4, 5, 6, 1, 7, 999}; //2,4
+        boolean flag = true;
+        for (int i = 0; i < array.length - 1; i++) {
+            if (array[i] % 2 == 0) {
+                if ((array[i] == array[i + 1] + 2) || (array[i + 1] == array[i] + 2)) {
+                    System.out.println("Two adjacent even-number detected, first number" + i + 1);
+                    flag = false;
+                    break;
+                }
+            }
+        }
+        if (flag) System.out.println("There is no sequence of adjacent even-number in the array.");
     }
 
     /**
