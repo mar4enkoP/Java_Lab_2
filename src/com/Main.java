@@ -3,17 +3,22 @@ package com;
 import java.util.*;
 
 public class Main {
+
     /**
      * Метод для создания рандомного масиа значений.
      * Принемающий: размер,минимальное значение,максимальное значение.
      */
-    public static int[] randomArray(int size, int min, int max, int emptyCells) {
+    public static int[] randomArray(int size, int min, int max, int emptyCells, int print) {
         int[] array;
         array = new int[size + emptyCells];
-        System.out.print("Array: \n| ");
+        if (print == 1) {
+            System.out.print("Array: \n| ");
+        }
         for (int i = 0; i < size; i++) {
             array[i] = (int) Math.round((Math.random() * (max - min)) + min);
-            System.out.print(array[i] + " | ");
+            if (print == 1) {
+                System.out.print(array[i] + " | ");
+            }
         }
         System.out.print("\n");
         return array;
@@ -41,14 +46,14 @@ public class Main {
      * Подсчитать, сколько в нем отрицательных, положительных и нулевых элементов.
      */
     public static void Task34() {
-        int max = 0, min = 0, zero = 0;
-        int[] array = randomArray(20, -10, 10, 0);
+        int positive = 0, negative = 0, zero = 0;
+        int[] array = randomArray(20, -10, 10, 0, 1);
         for (int i = 0; i < array.length; i++) {
-            if (array[i] > 0) max++;
-            if (array[i] < 0) min++;
+            if (array[i] > 0) positive++;
+            if (array[i] < 0) negative++;
             if (array[i] == 0) zero++;
         }
-        System.out.println("\nmax: " + max + "\nmin: " + min + "\nZero: " + zero);
+        System.out.println("\npositive integers: " + positive + "\nnegative integers: " + negative + "\nZero: " + zero);
     }
 
     /**
@@ -58,7 +63,8 @@ public class Main {
      * б) только по одному разу.(Task59b)
      */
     public static void Task59a() {
-        int[] array = randomArray(100, 0, 10, 0);
+        System.out.println("\nTask 2(a)");
+        int[] array = randomArray(100, 0, 10, 0, 1);
         HashSet<Integer> used = new HashSet<>();
         int counter = 0;
         int counterSecond = 0;
@@ -90,7 +96,8 @@ public class Main {
     }
 
     public static void Task59b() {
-        int[] array = randomArray(100, 0, 10, 0);
+        System.out.println("\nTask 2(b)");
+        int[] array = randomArray(100, 0, 10, 0, 1);
         HashSet<Integer> used = new HashSet<>();
         int counter = 0;
         int counterSecond = 0;
@@ -127,12 +134,13 @@ public class Main {
      * В случае положительного ответа определить порядковые номера чисел первой из таких пар.
      */
     public static void Task84() {
-        int[] array = {1, 2, 4, 8, 9, 7, 4, 5, 6, 1, 7, 999}; //2,4
+        int[] array = {1, 1, 4, 2, 9, 7, 4, 5, 6, 1, 7, 999}; //2,4
         boolean flag = true;
         for (int i = 0; i < array.length - 1; i++) {
             if (array[i] % 2 == 0) {
                 if ((array[i] == array[i + 1] + 2) || (array[i + 1] == array[i] + 2)) {
-                    System.out.println("Two adjacent even-number detected, first number" + i + 1);
+                    i++;
+                    System.out.println("Two adjacent even-number detected, first number " + i);
                     flag = false;
                     break;
                 }
@@ -147,7 +155,7 @@ public class Main {
      */
     public static void Task109() {
         int size = 10;
-        int[] array = randomArray(size, 0, 10, 1);
+        int[] array = randomArray(size, 0, 10, 1, 1);
         int maxNumber = -16;
         int maxIndex = 2;
         int posInsert = 3;//местот для вставки числа(индекс)
@@ -169,9 +177,32 @@ public class Main {
 
     /**
      * Task 5
+     * В массиве целых чисел с количеством элементов n найти наиболее часто встречающееся число.
+     * Если таких чисел несколько, определить наименьшее из них.
      */
     public static void Task134() {
-
+        int[] arrayMain = randomArray(10, 0, 10, 0, 1);
+        int result = 999;
+        int count = 0;
+        for (int i = 0; i < arrayMain.length; i++) {
+            int curCount = 1;
+            for (int j = i + 1; j < arrayMain.length; j++) {
+                if (arrayMain[i] == arrayMain[j]) {
+                    curCount++;
+                }
+            }
+            if (curCount > count) {
+                count = curCount;
+                result = arrayMain[i];
+            } else if (curCount == count) {
+                result = Math.min(result, arrayMain[i]);
+            }
+        }
+        if (count != 1) {
+            System.out.println("Detected: " + result);
+        } else {
+            System.out.println("was not detected");
+        }
     }
 
     public static void main(String[] args) {
@@ -208,5 +239,4 @@ public class Main {
             }
         }
     }
-
 }
